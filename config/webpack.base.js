@@ -64,7 +64,23 @@ module.exports = merge(webpackConfig,
                                     loader: 'awesome-typescript-loader'
                                 }
                             ]
-                        },                        
+                        },
+                        {
+                            test: /\.(less|css)$/,
+                            use: [
+                              { loader: 'style-loader' },
+                              {
+                                loader: 'css-loader',
+                                options: {
+                                  modules: false // 如果要启用css modules，改为true即可
+                                }
+                              },
+                              {
+                                loader: 'less-loader',
+                                options: { javascriptEnabled: true }
+                              }
+                            ]
+                          },                      
                     ]
                 }
             ]

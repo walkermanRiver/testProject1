@@ -2,7 +2,7 @@
 const {merge} = require('webpack-merge');
 const baseWebpackConfig = require('./webpack.base');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-// const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const config = require('./config');
 const sourceMapsMode = config.productionJsSourceMap ? 'source-map' : 'none';
 
@@ -14,5 +14,12 @@ module.exports = merge(baseWebpackConfig, {
   },
   plugins: [
     new CleanWebpackPlugin(),    
-  ],  
+  ],
+  optimization: {
+    minimizer: [
+      new OptimizeCSSAssetsPlugin({
+        cssProcessorOptions: true ? { map: { inline: false }} : {}
+      })
+    ]
+  }
 });
